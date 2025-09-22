@@ -1,6 +1,12 @@
 
 import cv2
-import winsound
+try:
+    import winsound
+    def beep():
+        winsound.Beep(1000, 300)
+except ImportError:
+    def beep():
+        pass  # No beep on non-Windows
 
 # Load pre-trained Haar cascades for face & eyes
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
@@ -38,7 +44,7 @@ while True:
 
     # Beep if distracted
     if distracted:
-        winsound.Beep(1000, 300)  # 1000 Hz for 300 ms
+        beep()
 
     # Display
     cv2.imshow("Driver Monitoring", frame)
